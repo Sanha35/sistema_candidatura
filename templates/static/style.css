@@ -1,0 +1,9 @@
+body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 0; 
+
+}
+
+h1, h2 { color: #003366; }
+form { background: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; }
+input, select, button { margin-top: 6px; margin-bottom: 10px; }
+table { background: white; border-radius: 6px; }
+

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Sistema de Candidaturas</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Lado esquerdo com imagem e filtro claro */
+    .left-side {
+      flex: 1;
+      background: url("{{ url_for('static', filename='images/fundo.png') }}") no-repeat center center;
+      background-size: cover;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left-side::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.25); /* filtro claro */
+    }
+
+    /* Lado direito com login */
+    .right-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f8f9fa;
+      position: relative;
+    }
+
+    /* Cartão de login */
+    .login-card {
+      background: rgba(255, 255, 255, 0.93);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+      width: 380px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      z-index: 1;
+    }
+
+    .login-card img.logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    /* Linha do título com bandeiras */
+    .title-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .title-container img.brasao {
+      width: 35px;
+      height: 35px;
+    }
+
+    .title-container img.flag {
+      width: 35px;
+      height: 25px;
+      border-radius: 3px;
+      box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    }
+
+    .login-card h3 {
+      font-weight: 600;
+      color: #0d6efd;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .login-card p.subtitle {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .btn-login {
+      background: linear-gradient(45deg, #007bff, #004080);
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .btn-login:hover {
+      background: linear-gradient(45deg, #0056b3, #002a5c);
+    }
+
+    /* Rodapé */
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #555;
+      font-size: 14px;
+      z-index: 1;
+    }
+
+    footer a {
+      color: #007bff;
+      margin: 0 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #002a5c;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left-side, .right-side {
+        width: 100%;
+        height: 50vh;
+      }
+
+      footer {
+        position: static;
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lado esquerdo com imagem -->
+  <div class="left-side">
+    <!-- Aqui você pode inserir conteúdo adicional se quiser, ex: texto ou ícones -->
+  </div>
+
+  <!-- Lado direito com login -->
+  <div class="right-side">
+    <div class="login-card">
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo da Instituição" class="logo">
+
+      <!-- Título com bandeiras -->
+      <div class="title-container">
+        <img src="{{ url_for('static', filename='images/flag_guinebissau.png') }}" alt="Bandeira da Guiné-Bissau" class="flag">
+        <h3>Sistema de Candidaturas para Estudantes Internacionais</h3>
+        <img src="{{ url_for('static', filename='images/brasao_portugal.png') }}" alt="Brasão de Portugal" class="brasao">
+      </div>
+
+      <p class="subtitle">Estudar em Portugal</p>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning">{{ messages[0] }}</div>
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST">
+        <div class="mb-3 text-start">
+          <label for="usuario" class="form-label">Usuário</label>
+          <input type="text" name="usuario" id="usuario" class="form-control" required>
+        </div>
+
+        <div class="mb-3 text-start">
+          <label for="senha" class="form-label">Palavra-Passe</label>
+          <input type="password" name="senha" id="senha" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn-login mt-3">Iniciar Sessão</button>
+      </form>
+    </div>
+
+    <footer>
+      🧑‍💻 Desenvolvido por <strong>Malam Sanhá</strong> © 2025 |
+      <a href="https://www.linkedin.com/in/malam-sanha" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/malamsanha2016" target="_blank"><i class="fab fa-instagram"></i></a>
+    </footer>
+  </div>
+
+</body>
+</html>

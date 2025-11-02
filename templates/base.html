@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Registo de Candidatura</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .navbar { margin-bottom: 20px; }
+        table img { max-width: 50px; max-height: 50px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('candidatura') }}">Sistema Candidatura</a>
+    <div class="collapse navbar-collapse">
+        {% if session.get('logado') %}
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('candidatura') }}">Candidatura</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('matricula') }}">Matrícula</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('relatorio') }}">Relatório</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link btn btn-outline-danger" href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
